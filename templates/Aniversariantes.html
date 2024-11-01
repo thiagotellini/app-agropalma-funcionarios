@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-qbrwRrt7zB9MwZBjdrQJ8zyFowST23H7FfQjBhR6T/Etrtu9iY4mLuzN/19hWc2z5O0HH8VEx7jZ7Q5cvBQfKw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Aniversariantes</title>
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 img-topo">
+                <img src="../static/img/aniversariantes.jpg">
+            </div>
+        </div>
+
+        <div class="container">
+            <h4 class="mt-4" style="color: #003C32;">Parabéns aos colaboradores que estão celebrando seus aniversários neste mês! </h4><br>
+            <h5 style="color: gray;">
+                Desejamos que este novo ciclo seja repleto de felicidades, prosperidade, saúde e sucesso em todas as áreas. Diante dos desafios do cotidiano, nada mais justo do 
+                que <b style="color: #003C32;">celebrarmos esta data especial com você.</b> 
+            </h5><br>
+            <h4 style="color: #003C32;">Atenção! Não se esqueça de que temos um presente especial para lhe entregar. Passe na área de Desenvolvimento & Cultura da sua unidade, e retire seu brinde.</h4>
+        </div>
+
+        <div class="container">
+            <!-- Campo de busca -->
+            <div class="row sticky-container">
+                <div class="col-md-12 mt-3">
+                    <input type="text" id="searchInput" class="form-control search" placeholder="Buscar Funcionário" onkeyup="filterBySearch()">
+                </div>
+            </div>
+
+            <!-- Filtros -->
+            <div class="row mb-4 sticky-container">
+                <div class="col-md-3 div-filtered">
+                    <div class="card card-filter" data-company="Belém" onclick="filterByCompany('Belém', this)">
+                        <div class="card-body card-title-filter">
+                            <h5 class="card-title">Belém</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 div-filtered">
+                    <div class="card card-filter" data-company="Limeira" onclick="filterByCompany('Limeira', this)">
+                        <div class="card-body card-title-filter">
+                            <h5 class="card-title">Limeira</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 div-filtered">
+                    <div class="card card-filter" data-company="São Paulo" onclick="filterByCompany('São Paulo', this)">
+                        <div class="card-body card-title-filter">
+                            <h5 class="card-title">São Paulo</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 div-filtered">
+                    <div class="card card-filter" data-company="Tailandia" onclick="filterByCompany('Tailandia', this)">
+                        <div class="card-body card-title-filter">
+                            <h5 class="card-title">Tailandia</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="employee-cards">
+                {% for result in results %}
+                <div class="col-md-3 employee-card" data-company="{{ result['Empresa'] }}">
+                    <div class="card card-fun">
+                        <div class="card-header d-flex align-items-center">
+                            <img src="{{ result['fotemp'] }}" alt="Foto do Funcionário" class="card-img mr-2"
+                                style="width: 80px; height: 80px; display: block; margin: auto;">
+                            <h5 class="card-title card-title-custom" style="max-width: 150px;">{{ result['Nome Funcionario'] }}</h5>
+                        </div>
+                        <div class="card-body">
+                            <blockquote class="blockquote mb-0">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <p class="card-text" style="margin-top: -15px;"><strong>Departamento:</strong></p>
+                                        <p class="card-text-info">{{ result['Departamento'] | truncate(20, True, '...') }}</p>
+                                    </div>
+                                    <div class="col-sm">
+                                        <p class="card-text" style="margin-top: -15px;"><strong>Empresa:</strong></p>
+                                        <p class="card-text-info">{{ result['Empresa'] }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <p class="card-text" style="margin-top: -10px;"><strong>Data Nasc.:</strong></p>
+                                        <p class="card-text-info">{{ result['Data Nascimento'].strftime('%d/%m/%Y') }}</p>
+                                    </div>
+                                    <div class="col-sm">
+                                        <p class="card-text" style="margin-top: -10px;"><strong>Aniversario:</strong></p>
+                                        <p class="card-text-info">{{ result['QtdDiasAniversario'] }}</p>
+                                    </div>
+                                </div>
+                                <p class="card-text text-mensagem" style="margin-top: -5px; text-align: center;">Mensagem:</p>
+                                {% if result['QtdDiasAniversario'] == 'Hoje' %}
+                                    <div class="multi-color-background">
+                                        <p class="card-text-info2">{{ result['Mensagem'] }} <img class="ml-2" src="../static/img/cake.svg"></p>
+                                    </div>
+                                {% endif %}
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div id="no-anniversary-message" class="alert alert-warning" style="display: none; text-align: center;">
+                Não existem aniversários para os funcionários de <span id="selected-company"></span>.
+            </div>
+        </div>
+    </div> 
+
+    <script>
+        let currentFilter = null;
+
+        function filterByCompany(company, selectedCard) {
+            const cards = document.querySelectorAll('.employee-card');
+            const noAnniversaryMessage = document.getElementById('no-anniversary-message');
+            const selectedCompanyText = document.getElementById('selected-company');
+
+            let hasAnniversaries = false;
+
+            if (currentFilter === company) {
+                // Limpa o filtro se o mesmo botão for clicado novamente
+                showAllEmployees();
+                currentFilter = null;
+                noAnniversaryMessage.style.display = 'none'; // Oculta a mensagem
+            } else {
+                // Aplica o filtro
+                cards.forEach(card => {
+                    const cardCompany = card.getAttribute('data-company');
+                    if (cardCompany === company) {
+                        card.style.display = 'block';
+                        hasAnniversaries = true; // Encontrou um aniversário
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // Exibe ou oculta a mensagem
+                if (hasAnniversaries) {
+                    noAnniversaryMessage.style.display = 'none'; // Oculta a mensagem
+                } else {
+                    selectedCompanyText.textContent = company; // Atualiza o texto da empresa
+                    noAnniversaryMessage.style.display = 'block'; // Mostra a mensagem
+                }
+
+                // Remove a classe 'selected' de todos os cards de filtro
+                const filterCards = document.querySelectorAll('.card-filter');
+                filterCards.forEach(card => {
+                    card.classList.remove('selected');
+                });
+
+                // Adiciona a classe 'selected' ao card clicado
+                selectedCard.classList.add('selected');
+                currentFilter = company; // Atualiza o filtro atual
+            }
+        }
+
+        function showAllEmployees() {
+            const cards = document.querySelectorAll('.employee-card');
+            cards.forEach(card => {
+                card.style.display = 'block'; // Mostra todos os cards
+            });
+            document.getElementById('no-anniversary-message').style.display = 'none'; // Oculta a mensagem
+            currentFilter = null; // Reseta o filtro atual
+            
+            // Remove a classe 'selected' de todos os cards de filtro
+            const filterCards = document.querySelectorAll('.card-filter');
+            filterCards.forEach(card => {
+                card.classList.remove('selected');
+            });
+        }
+
+        function filterBySearch() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.employee-card');
+
+            cards.forEach(card => {
+                const name = card.querySelector('.card-title-custom').innerText.toLowerCase();
+                card.style.display = name.includes(input) ? 'block' : 'none';
+            });
+        }
+    </script>
+
+    <div class="footer">
+        <div class="row">
+            <div class="col-md-6">
+                <img class="logo-footer mt-2 mb-2 ml-4" src="../static/img/logo-footer.png">
+            </div>
+                
+            <div class="col-md-6">
+                <p style="color: #fff; font-weight: bold;" class="text-right mt-2 mr-5">© 2024 Todos os direitos reservados.</p>
+            </div>
+            
+        </div>
+    </div>
+
+</body>
+</html>

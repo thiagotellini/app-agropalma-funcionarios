@@ -1,0 +1,158 @@
+
+@font-face {
+    font-family: 'agropalma';
+    src: url('./fontes/LarkenDEMO-Bold.otf') format('truetype'); 
+}
+
+.img-topo {
+    display: flex;
+    justify-content: center;
+}
+
+.img-topo img {
+    width: 100%; 
+    height: auto;
+}
+
+.card-fun {
+    margin-bottom: 20px;
+    height: 280px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    background-color: #003C32;
+}
+#employee-cards {
+    margin-bottom: 50px;
+}
+.card-filter {
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border-left: 4px solid #0a5c50;
+    padding-left: 10px;
+    transition: transform 0.3s, background-color 0.3s;
+}
+.card-filter:hover {
+    background-color: rgba(10, 92, 80, 0.5);
+    transform: scale(1.05);
+}
+.card-filter.selected {
+    background-color: rgba(10, 92, 80, 0.5);
+    color: white;
+}
+.card-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+}
+.card-body {
+    display: flex;
+    align-items: flex-start;
+}
+.info {
+    margin-left: 15px;
+}
+.card-title-custom {
+    font-size: 13px;
+    font-weight: bold;
+    font-family: 'agropalma', sans-serif;
+    color: #fff;
+}
+.card-title-filter {
+    margin-bottom: 25px;
+}
+.card-text {
+    font-size: 11px;
+    color: #fff;
+}
+.card-text-info {
+    font-size: 13px;
+    color: #99b1ad;
+    margin-top: -18px;
+    font-weight: bold;
+}
+.card-text-info2 {
+    font-size: 13px;
+    color: #003C32;
+    margin-top: -18px;
+    font-weight: bold;
+}
+.text-mensagem {
+    color: #fff;
+    font-weight: bold;
+}
+.search {
+    border-radius: 10px;
+}
+input#searchInput:focus {
+    border-color: #003C32;
+    box-shadow: 0 0 0 0.2rem rgba(10, 92, 80, 0.25);
+    outline: none;
+}
+/* Estilo para deixar os painéis fixos */
+.sticky-container {
+    position: sticky;
+    z-index: 1000; /* Para garantir que fique acima de outros conteúdos */
+    background-color: #fff; /* Fundo para a área sticky */
+    padding: 10px 0; /* Espaçamento interno */
+}
+/* Ajuste para as divs fixas */
+.sticky-container:nth-of-type(1) {
+    top: 0; /* Para o campo de busca */
+}
+.sticky-container:nth-of-type(2) {
+    top: 4.5rem; /* Aumentando para evitar sobreposição */
+}
+.row.sticky-container {
+    margin-bottom: 0; /* Remove margens para evitar sobreposição */
+}
+.div-filtered {
+    margin-top: -10px;
+}
+
+.multi-color-background {
+    background-color: #D7FFD7;
+    border-top-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    height: 25px;
+    align-items: center;
+    text-align: center;
+    margin-top: 20px;
+}
+.footer {
+    background-color: #003C32;
+    width: 100%;   
+    margin-top: 20px; 
+    
+}
+
+.logo-footer {
+    width: 30px;
+    height: auto;
+}
+
+/* Estilo da paginação */
+.pagination .page-item .page-link {
+    background-color: #003C32; /* Cor de fundo */
+    color: #fff; /* Cor do texto */
+    border: 1px solid #fff;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #005B4D; /* Cor para o item ativo */
+    color: #fff; /* Cor do texto ativo */
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: #004B40; /* Cor ao passar o mouse */
+    color: #fff; /* Cor do texto ao passar o mouse */
+}
+
+.pagination .page-item.disabled .page-link {
+    background-color: #003C32; /* Cor de fundo para itens desativados */
+    color: #ccc; /* Cor do texto para itens desativados */
+}
+
